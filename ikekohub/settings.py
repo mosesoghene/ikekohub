@@ -178,3 +178,8 @@ REST_AUTH = {
     'JWT_AUTH_REFRESH_COOKIE': 'core-refresh-token',
 }
 
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(hours=1),
+}
+
