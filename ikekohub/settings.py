@@ -31,7 +31,9 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [
+SHARED_APPS = [
+    'django_tenants',
+    'public_app',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -52,8 +54,12 @@ INSTALLED_APPS = [
 
     "drf_yasg",
 ]
+TENANT_APPS = ['school']
+
+INSTALLED_APPS = SHARED_APPS + [app for app in TENANT_APPS if app not in SHARED_APPS]
 
 MIDDLEWARE = [
+    'django_tenants.middleware.main.TenantMainMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -90,10 +96,19 @@ WSGI_APPLICATION = 'ikekohub.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django_tenants.postgresql_backend',
+        'NAME': 'ikekohub',
+        'USER': 'postgres',
+        'PASSWORD': 'passwd',
+        'HOST': 'localhost',
+        'PORT': 1649,
+
     }
 }
+
+DATABASE_ROUTERS = (
+    'django_tenants.routers.TenantSyncRouter',
+)
 
 
 # Password validation
@@ -196,3 +211,6 @@ SWAGGER_SETTINGS = {
     },
     'SECURITY_REQUIREMENTS': [{'Bearer': []}]
 }
+
+TENANT_MODEL = 'public_app.School'
+TENANT_DOMAIN_MODEL = 'public_app.Domain'
