@@ -1,8 +1,13 @@
 services:
   db:
     image: postgres:latest
-    ports:
-      - 1649:5432
-    restart: always
     environment:
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: passwd
+      POSTGRES_DB: ikekohub
+    ports:
+      - "1649:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+volumes:
+  postgres_data:
