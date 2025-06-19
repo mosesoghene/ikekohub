@@ -154,21 +154,29 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-ACCOUNT_LOGIN_METHODS  = {
-    'username': {'required': False},
-    'email': {'required': True},
-}
-
-ACCOUNT_UNIQUE_EMAIL = True
-ACCOUNT_SIGNUP_FIELDS = {
-    'username': {'required': False},
-    'email': {'required': True},
-}
-
+# Authentication Backends
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 )
+
+# Allauth Configuration
+ACCOUNT_LOGIN_METHOD = "username_email" # Allows both username and email
+ACCOUNT_SIGNUP_FIELDS = ['email', 'username']
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'  # Or your custom field
+
+# Modern signup fields configuration
+ACCOUNT_SIGNUP_FIELDS = {
+    'email': {
+        'required': True,
+        'verify': True  # Enable email verification
+    },
+    'username': {
+        'required': True,
+        'min_length': 4
+    }
+}
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
