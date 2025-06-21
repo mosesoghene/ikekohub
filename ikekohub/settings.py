@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure--i&2votw+g#of4y)waba3f(8llp*4ld8t0*le-ht(3vc8=80a6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -71,7 +71,7 @@ MIDDLEWARE = [
     'allauth.account.middleware.AccountMiddleware',
 ]
 
-ROOT_URLCONF = 'ikekohub.urls'
+ROOT_URLCONF = 'ikekohub.tenant_urls'
 
 TEMPLATES = [
     {
@@ -222,3 +222,6 @@ SWAGGER_SETTINGS = {
 
 TENANT_MODEL = 'public_app.School'
 TENANT_DOMAIN_MODEL = 'public_app.Domain'
+
+PUBLIC_SCHEMA_URLCONF = 'ikekohub.public_urls'
+TENANT_URLCONF = 'ikekohub.tenant_urls'
