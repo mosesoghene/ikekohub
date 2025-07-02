@@ -5,4 +5,5 @@ from django.contrib import admin
 urlpatterns = [
     path('', views.AdminDashboardView.as_view(), name='index'),
     path('admin/', admin.site.urls),
+    path('users/', views.GetAllUsersView.as_view(), name='users'),
 ]
