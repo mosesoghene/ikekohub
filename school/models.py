@@ -40,6 +40,9 @@ class AdminProfile(models.Model):
     user = models.OneToOneField(TenantUser, on_delete=models.CASCADE, related_name='admin_profile')
     department = models.CharField(max_length=100, blank=True)
 
+    def __str__(self):
+        return f"{self.user.role}"
+
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         # Automatically create/update role when profile is created
@@ -76,6 +79,9 @@ class StudentProfile(models.Model):
     academic_year = models.CharField(max_length=20)
     profile_picture = models.ImageField(upload_to='student_profiles/', blank=True)
 
+    def __str__(self):
+        return f"{self.user.username} {self.user.role}"
+
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         # Automatically create/update role when profile is created
@@ -83,6 +89,9 @@ class StudentProfile(models.Model):
             user=self.user,
             defaults={'role_type': 'student'}
         )
+
+    def __str__(self):
+        return f"{self.user.username} {self.user.role}"
 
 
 class ParentProfile(models.Model):
@@ -97,3 +106,6 @@ class ParentProfile(models.Model):
             user=self.user,
             defaults={'role_type': 'parent'}
         )
+
+    def __str__(self):
+        return f"{self.user.username} {self.user.role}"

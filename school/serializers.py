@@ -12,3 +12,6 @@ class AdminProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = TenantUser
         fields = '__all__'
+
+    def create(self, validated_data):
+        ...
