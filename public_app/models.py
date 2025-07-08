@@ -12,7 +12,7 @@ class Domain(DomainMixin):
 
 class TenantUser(AbstractUser):
     is_verified = models.BooleanField(default=False)
-    school = models.ForeignKey(School, on_delete=models.CASCADE, blank=False, null=False)
+    school = models.ForeignKey(School, on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
         indexes = [

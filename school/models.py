@@ -54,9 +54,8 @@ class AdminProfile(models.Model):
 
 class TeacherProfile(models.Model):
     user = models.OneToOneField(TenantUser, on_delete=models.CASCADE, related_name='teacher_profile')
-    subject_taught = models.CharField(max_length=100)
-    qualification = models.CharField(max_length=100)
-    employee_id = models.CharField(max_length=20, unique=True, blank=True)
+    subject_taught = models.JSONField(default=list)
+
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
